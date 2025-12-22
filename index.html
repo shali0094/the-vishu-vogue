@@ -3,62 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishu AI Magic Studio</title>
+    <title>Vishu AI Studio</title>
     <style>
-        :root { --primary: #ff2e63; --bg: #0a0a0c; }
-        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; text-align: center; }
-        .main-card { margin: 20px; padding: 25px; background: rgba(255,255,255,0.05); border-radius: 25px; border: 1px solid #333; }
-        .preview-box { width: 100%; height: 280px; background: #000; border-radius: 20px; position: relative; overflow: hidden; }
-        .media-content { width: 100%; height: 100%; object-fit: cover; filter: blur(40px); transition: 0.5s; }
-        .lock-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); }
-        .unlocked .media-content { filter: none; }
-        .unlocked .lock-ui { display: none; }
-        .pay-btn { width: 100%; background: linear-gradient(45deg, var(--primary), #ff6b6b); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: bold; margin-top: 20px; font-size: 1.1rem; }
-        .trial-grid { display: flex; gap: 12px; overflow-x: auto; padding: 20px; }
-        .trial-card { min-width: 150px; height: 210px; background: #111; border-radius: 15px; object-fit: cover; border: 1px solid #222; }
+        body { background: #0a0a0c; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .card { background: #1a1a1e; padding: 20px; border-radius: 20px; border: 1px solid #333; margin-top: 20px; }
+        .preview { width: 100%; height: 260px; background: #000; border-radius: 15px; position: relative; overflow: hidden; }
+        .blur { filter: blur(45px); width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
+        .lock-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 50px; }
+        .unlocked .blur { filter: none !important; }
+        .unlocked .lock-icon { display: none !important; }
+        .btn { background: linear-gradient(45deg, #ff2e63, #ff6b6b); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; margin-top: 20px; font-size: 16px; }
+        .trials { display: flex; gap: 12px; overflow-x: auto; margin-top: 25px; padding-bottom: 10px; }
+        .trial-img { min-width: 150px; height: 200px; border-radius: 12px; background: #111; object-fit: cover; border: 1px solid #222; }
     </style>
 </head>
-<body onload="autoUnlock()">
-    <header style="padding: 40px 20px;">
-        <h1 id="headerTitle">Vishu AI Studio</h1>
-    </header>
-
-    <div class="main-card">
-        <div class="preview-box">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJmNnZ0Znl4Nnd4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxyK2fKx56/giphy.gif" class="media-content">
-            <div class="lock-ui">
-                <span style="font-size: 50px;">🔒</span>
-                <p style="letter-spacing: 2px; font-size: 14px; margin-top: 10px;">PREMIUM CONTENT</p>
-            </div>
+<body id="mainBody">
+    <h1 id="status">Vishu AI Magic</h1>
+    
+    <div class="card">
+        <div class="preview">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJmNnZ0Znl4Nnd4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxyK2fKx56/giphy.gif" class="blur">
+            <div class="lock-icon">🔒</div>
         </div>
-        <button class="pay-btn" onclick="pay()">UNLOCK MAGIC - ₹199</button>
+        <button class="btn" onclick="startPay()">UNLOCK MAGIC - ₹199</button>
     </div>
 
-    <h3 style="text-align:left; padding-left:25px; color: #00f2fe;">✨ Free Previews</h3>
-    <div class="trial-grid">
-        <img src="https://media.giphy.com/media/l41lTfuxV5F6K1C64/giphy.gif" class="trial-card">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJmNnZ0Znl4Nnd4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxyK2fKx56/giphy.gif" class="trial-card">
+    <h3 style="text-align:left; margin-top:30px; color:#00f2fe;">✨ Free Previews</h3>
+    <div class="trials">
+        <img src="https://media.giphy.com/media/l41lTfuxV5F6K1C64/giphy.gif" class="trial-img">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHRraGZ0Znl4Nnd4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfuxV5F6K1C64/giphy.gif" class="trial-img">
     </div>
 
     <script>
-        function autoUnlock() {
+        function checkAccess() {
             const urlParams = new URLSearchParams(window.location.search);
-            // 1. ఒకవేళ లింక్ లో ?verify=myphone అని ఉంటే అది నీ ఫోన్ అని గుర్తుపెట్టుకుంటుంది
-            if (urlParams.get('verify') === 'myphone') {
-                localStorage.setItem('vishu_access_token', 'granted_99');
+            // స్టెప్ 1: ఒకవేళ లింక్‌లో ?vishu=boss ఉంటే, ఇది నీ ఫోన్ అని శాశ్వతంగా గుర్తుపెట్టుకుంటుంది
+            if (urlParams.get('vishu') === 'boss') {
+                localStorage.setItem('my_secret_access', 'granted');
                 alert("వైషు, నీ ఫోన్ సెక్యూరిటీ యాక్టివేట్ అయ్యింది! ✅");
             }
 
-            // 2. ఒకసారి సేవ్ అయ్యాక, ఎప్పుడు ఓపెన్ చేసినా ఆటోమేటిక్ గా అన్‌లాక్ అవుతుంది
-            if (localStorage.getItem('vishu_access_token') === 'granted_99') {
-                document.body.classList.add('unlocked');
-                document.getElementById('headerTitle').innerText = "Welcome, Vishu! 😎";
+            // స్టెప్ 2: ఒకసారి యాక్టివేట్ అయ్యాక, ఎప్పుడు ఓపెన్ చేసినా ఆటోమేటిక్ అన్‌లాక్
+            if (localStorage.getItem('my_secret_access') === 'granted') {
+                document.getElementById('mainBody').classList.add('unlocked');
+                document.getElementById('status').innerText = "Welcome Boss Vishu! 😎";
             }
         }
-
-        function pay() {
+        
+        function startPay() {
             window.location.href = "upi://pay?pa=9100911202@ibl&pn=VishuVogue&am=199&cu=INR";
         }
+        
+        window.onload = checkAccess;
     </script>
 </body>
 </html>
