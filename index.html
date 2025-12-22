@@ -3,43 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishu AI Magic Studio</title>
+    <title>Vishu AI Magic Studio - Unlocked</title>
     <style>
         body { background: #0a0a0c; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
         .card { background: #1a1a1e; padding: 25px; border-radius: 25px; border: 1px solid #333; margin-top: 20px; }
-        .preview { width: 100%; height: 280px; background: #000; border-radius: 20px; position: relative; overflow: hidden; }
-        .media { width: 100%; height: 100%; object-fit: cover; filter: blur(45px); transition: 0.8s; }
-        .unlocked .media { filter: none; }
-        .lock-icon { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 50px; background: rgba(0,0,0,0.4); }
-        .unlocked .lock-icon { display: none; }
-        .btn { background: linear-gradient(45deg, #ff2e63, #ff6b6b); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; font-weight: bold; margin-top: 20px; font-size: 1.1rem; }
+        .preview { width: 100%; height: 280px; background: #222; border-radius: 20px; overflow: hidden; margin-bottom: 15px; }
+        .media { width: 100%; height: 100%; object-fit: cover; }
+        .status-tag { background: #00f2fe; color: black; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; }
         .trials { display: flex; gap: 15px; overflow-x: auto; margin-top: 30px; }
-        .trial-card { min-width: 160px; height: 220px; border-radius: 15px; object-fit: cover; background: #222; }
+        .trial-card { min-width: 160px; height: 220px; border-radius: 15px; object-fit: cover; border: 1px solid #222; }
     </style>
 </head>
-<body id="mainContent">
-    <h1 id="statusMsg">Vishu AI Studio</h1>
+<body>
+    <h1>Vishu AI Studio <span class="status-tag">OPEN ACCESS</span></h1>
+    
     <div class="card">
+        <p style="color: #00f2fe;">✨ Premium Content (Now Unlocked for All)</p>
         <div class="preview">
             <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80" class="media">
-            <div class="lock-icon">🔒</div>
         </div>
-        <button class="btn" onclick="location.href='upi://pay?pa=9100911202@ibl&pn=Vishu&am=199&cu=INR'">UNLOCK MAGIC - ₹199</button>
+        <p>మీరు ఇప్పటికే ప్రీమియం మెంబర్! ఎంజాయ్ చేయండి.</p>
     </div>
 
-    <h3 style="text-align:left; color:#00f2fe;">✨ Free Previews</h3>
+    <h3 style="text-align:left; margin-left:10px;">✨ More Previews</h3>
     <div class="trials">
         <img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?w=400&q=80" class="trial-card">
         <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400&q=80" class="trial-card">
     </div>
 
-    <script>
-        if (new URLSearchParams(window.location.search).get('vishu') === 'boss') localStorage.setItem('vishu_access', 'true');
-        if (localStorage.getItem('vishu_access') === 'true') {
-            document.getElementById('mainContent').classList.add('unlocked');
-            document.getElementById('statusMsg').innerText = "Welcome Boss Vishu! 😎";
-        }
-    </script>
+    <footer style="margin-top: 40px; font-size: 12px; color: #666;">
+        © 2025 Vishu Vogue AI Studio
+    </footer>
 </body>
 </html>
-
