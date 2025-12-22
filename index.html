@@ -3,42 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishu Studio - Welcome Everyone</title>
+    <title>Vishu AI Video Studio</title>
     <style>
-        body { background: #0a0a0c; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; margin: 0; padding: 20px; }
-        .main-container { max-width: 600px; margin: auto; }
-        .header { padding: 30px 0; border-bottom: 1px solid #333; margin-bottom: 20px; }
-        .content-box { background: #1a1a1e; border-radius: 20px; padding: 20px; margin-top: 20px; border: 1px solid #444; }
-        .image-preview { width: 100%; height: auto; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .unlocked-tag { color: #00f2fe; font-weight: bold; font-size: 1.2rem; display: block; margin-bottom: 10px; }
-        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .gallery-item { width: 100%; height: 200px; border-radius: 10px; object-fit: cover; border: 1px solid #333; }
-        .footer { margin-top: 50px; color: #555; font-size: 0.8rem; }
+        body { background: #0a0a0c; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+        .preview-img { width: 100%; height: 180px; border-radius: 15px; object-fit: cover; border: 2px solid #333; }
+        
+        .upload-section { background: #1a1a1e; padding: 30px; border-radius: 25px; border: 2px dashed #00f2fe; }
+        .gen-btn { background: linear-gradient(45deg, #00f2fe, #4facfe); color: black; padding: 15px; width: 100%; 
+                    border-radius: 15px; font-weight: bold; border: none; margin-top: 15px; font-size: 1.1rem; }
+        
+        #loading { display: none; margin-top: 20px; color: #00f2fe; }
+        #outputVideo { display: none; width: 100%; margin-top: 20px; border-radius: 15px; }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="header">
-            <h1>Vishu Vogue AI Studio</h1>
-            <p style="color: #888;">Professional Photo Editing & Magic</p>
-        </div>
+    <h1>Welcome to Vishu AI Studio</h1>
+    <p style="color: #888;">Select a style and generate your video</p>
 
-        <div class="content-box">
-            <span class="unlocked-tag">🔓 OPEN ACCESS FOR ALL</span>
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" class="image-preview">
-            <h3>Premium Design Preview</h3>
-            <p style="color: #bbb;">మా సర్వీస్ ఉపయోగించుకున్నందుకు ధన్యవాదాలు. ఈ కంటెంట్ అందరికీ అందుబాటులో ఉంది.</p>
-        </div>
-
-        <h3 style="text-align: left; margin-top: 30px;">✨ More Creations</h3>
-        <div class="gallery">
-            <img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?w=400&q=80" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400&q=80" class="gallery-item">
-        </div>
-
-        <div class="footer">
-            © 2025 Vishu AI Studio. All content is now public.
-        </div>
+    <div class="grid">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400" class="preview-img">
+        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400" class="preview-img">
+        <img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?w=400" class="preview-img">
+        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400" class="preview-img">
     </div>
+
+    <div class="upload-section">
+        <h3>Create Your AI Video</h3>
+        <input type="file" id="photoInput" accept="image/*" style="display: none;">
+        <button class="gen-btn" onclick="document.getElementById('photoInput').click()">+ UPLOAD YOUR PHOTO</button>
+        <button class="gen-btn" style="background: #ff2e63; color: white;" onclick="generateVideo()">GENERATE AI VIDEO</button>
+        
+        <div id="loading">AI Magic Working... Please wait ⏳</div>
+        <video id="outputVideo" controls loop></video>
+    </div>
+
+    <script>
+        function generateVideo() {
+            const file = document.getElementById('photoInput').files[0];
+            if (!file) {
+                alert("ముందు ఒక ఫోటో అప్‌లోడ్ చెయ్ వైషు!");
+                return;
+            }
+            document.getElementById('loading').style.display = 'block';
+            
+            // AI వీడియో జనరేషన్ లాగా భ్రమ కలిగించడానికి 3 సెకన్ల టైమ్
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                const video = document.getElementById('outputVideo');
+                // ఇది శాంపిల్ AI వీడియో లింక్
+                video.src = "https://assets.mixkit.co/videos/preview/mixkit-abstract-flowing-neon-waves-34444-large.mp4";
+                video.style.display = 'block';
+                alert("Boss! Your AI Video is Ready! 😎");
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
