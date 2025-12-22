@@ -1,26 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="te">
 <head>
-    <title>The Vishu Vogue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Magic - Secret Studio</title>
     <style>
-        body { background-color: #000; color: #d4af37; text-align: center; font-family: 'Playfair Display', serif; margin: 0; }
-        .header { padding: 50px; border-bottom: 1px solid #d4af37; }
-        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; }
-        .box { border: 1px solid #d4af37; height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Arial', sans-serif; text-align: center; }
+        
+        /* మ్యాజికల్ బ్యాక్ గ్రౌండ్ */
+        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #200122, #000000); }
+        
+        .trending-now { background: #ff0055; color: #fff; padding: 5px 15px; border-radius: 50px; font-size: 12px; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.5; } }
+
+        /* బ్లర్ చేసిన వీడియో బాక్స్ - ఇది చూస్తేనే ఎవరికైనా పే చేయాలనిపిస్తుంది */
+        .preview-box {
+            width: 300px; height: 400px; margin: 20px;
+            border-radius: 20px; border: 2px solid #333;
+            background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJibmtpZnd4Z2R0bmR1bmh4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxyK2fKx56/giphy.gif');
+            background-size: cover; filter: blur(15px); /* ఇక్కడ బ్లర్ ఉంది */
+            display: flex; align-items: center; justify-content: center; position: relative;
+        }
+
+        .lock-icon { font-size: 50px; filter: blur(0) !important; position: absolute; }
+
+        .price-tag { font-size: 24px; color: #ff0055; font-weight: bold; margin: 10px 0; }
+
+        .pay-btn {
+            background: #fff; color: #000; border: none; padding: 15px 40px;
+            border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 0 20px #fff; transition: 0.3s;
+        }
+        .pay-btn:hover { transform: scale(1.1); background: #ff0055; color: #fff; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>✨ THE VISHU VOGUE ✨</h1>
-        <p>Discover the essence of elegance and style</p>
+    <div class="hero">
+        <div class="trending-now">🔥 1.2K PEOPLE UNLOCKED IN LAST HOUR</div>
+        <h1>AI MEMORY MAGIC</h1>
+        <p>మీ ఫోటోలకు ప్రాణం పోయండి (AI Hug/Kiss/Dance)</p>
+
+        <div class="preview-box">
+            <div class="lock-icon">🔒</div>
+        </div>
+
+        <div class="price-tag">One-Time Access: ₹199</div>
+        <button class="pay-btn" onclick="startPayment()">UNLOCK MAGIC NOW</button>
+        
+        <p style="font-size: 12px; color: #555; margin-top: 20px;">*No Subscription. Pay only for what you create.</p>
     </div>
-    <div class="gallery">
-        <div class="box">Collection 1</div>
-        <div class="box">Collection 2</div>
-        <div class="box">Collection 3</div>
-        <div class="box">Collection 4</div>
-        <div class="box">Collection 5</div>
-        <div class="box">Collection 6</div>
-    </div>
+
+    <script>
+        function startPayment() {
+            alert("Redirecting to Secure Payment Gateway... బంగారం, ఇక్కడ మనం నీ ఫోన్ పే/గూగుల్ పే లింక్ పెడదాం!");
+        }
+    </script>
 </body>
 </html>
