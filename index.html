@@ -1,74 +1,64 @@
-
 <!DOCTYPE html>
 <html lang="te">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vishu AI Magic Studio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff2e63; --bg: #0a0a0c; --glass: rgba(255, 255, 255, 0.05); }
-        body { margin: 0; background: var(--bg); color: white; font-family: 'Inter', sans-serif; text-align: center; }
-        .gradient-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0a0a0c 100%); z-index: -1; }
-        header { padding: 40px 20px; cursor: pointer; } /* ఇక్కడ నొక్కాలి */
-        .badge { background: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 10px; font-weight: bold; }
-        h1 { font-size: 2.2rem; margin: 10px 0; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .main-card { margin: 0 20px 30px; padding: 25px; background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; backdrop-filter: blur(20px); }
-        .preview-box { width: 100%; height: 280px; background: #111; border-radius: 20px; overflow: hidden; position: relative; }
-        .media-content { width: 100%; height: 100%; object-fit: cover; filter: blur(50px); }
+        :root { --primary: #ff2e63; --bg: #0a0a0c; }
+        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; text-align: center; }
+        .main-card { margin: 20px; padding: 25px; background: rgba(255,255,255,0.05); border-radius: 25px; border: 1px solid #333; }
+        .preview-box { width: 100%; height: 280px; background: #000; border-radius: 20px; position: relative; overflow: hidden; }
+        .media-content { width: 100%; height: 100%; object-fit: cover; filter: blur(40px); transition: 0.5s; }
         .lock-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); }
-        .pay-btn { width: 100%; background: linear-gradient(45deg, var(--primary), #ff6b6b); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: bold; }
-        .trial-section { margin-top: 30px; padding: 0 20px; text-align: left; }
-        .trial-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 20px; }
-        .trial-card { min-width: 160px; background: #111; border-radius: 15px; overflow: hidden; height: 200px; }
+        .unlocked .media-content { filter: none; }
+        .unlocked .lock-ui { display: none; }
+        .pay-btn { width: 100%; background: linear-gradient(45deg, var(--primary), #ff6b6b); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: bold; margin-top: 20px; font-size: 1.1rem; }
+        .trial-grid { display: flex; gap: 12px; overflow-x: auto; padding: 20px; }
+        .trial-card { min-width: 150px; height: 210px; background: #111; border-radius: 15px; object-fit: cover; border: 1px solid #222; }
     </style>
 </head>
-<body onload="setupDeviceCheck()">
-    <div class="gradient-bg"></div>
-    <header onclick="adminAccess()">
-        <span class="badge" id="statusBadge">VISHU OFFICIAL</span>
-        <h1 id="mainTitle">Vishu AI Studio</h1>
+<body onload="autoUnlock()">
+    <header style="padding: 40px 20px;">
+        <h1 id="headerTitle">Vishu AI Studio</h1>
     </header>
 
     <div class="main-card">
         <div class="preview-box">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJibmtpZnd4Z2R0bmR1bmh4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxyK2fKx56/giphy.gif" class="media-content" id="media">
-            <div class="lock-ui" id="lock"><span>🔒</span><p>PREMIUM CONTENT</p></div>
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJmNnZ0Znl4Nnd4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxyK2fKx56/giphy.gif" class="media-content">
+            <div class="lock-ui">
+                <span style="font-size: 50px;">🔒</span>
+                <p style="letter-spacing: 2px; font-size: 14px; margin-top: 10px;">PREMIUM CONTENT</p>
+            </div>
         </div>
-        <div id="paymentArea"><button class="pay-btn" onclick="startPayment()">GET ACCESS - ₹199</button></div>
+        <button class="pay-btn" onclick="pay()">UNLOCK MAGIC - ₹199</button>
     </div>
 
-    <div class="trial-section">
-        <h3 style="color:#00f2fe">✨ Free Previews</h3>
-        <div class="trial-grid">
-            <div class="trial-card"><img src="https://media.giphy.com/media/l41lTfuxV5F6K1C64/giphy.gif" style="width:100%; height:100%; object-fit:cover;"></div>
-            <div class="trial-card"><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJmNnZ0Znl4Nnd4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxyK2fKx56/giphy.gif" style="width:100%; height:100%; object-fit:cover;"></div>
-        </div>
+    <h3 style="text-align:left; padding-left:25px; color: #00f2fe;">✨ Free Previews</h3>
+    <div class="trial-grid">
+        <img src="https://media.giphy.com/media/l41lTfuxV5F6K1C64/giphy.gif" class="trial-card">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJmNnZ0Znl4Nnd4bmR4bmR4bmR4bmR4bmR4bmR4bmR4bmR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxxyK2fKx56/giphy.gif" class="trial-card">
     </div>
 
     <script>
-        let counter = 0;
-        function setupDeviceCheck() {
-            if (new URLSearchParams(window.location.search).get('setup') === 'vishu') {
-                localStorage.setItem('is_vishu', 'true');
-                alert("Owner Device Ready! ✅");
+        function autoUnlock() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // 1. ఒకవేళ లింక్ లో ?verify=myphone అని ఉంటే అది నీ ఫోన్ అని గుర్తుపెట్టుకుంటుంది
+            if (urlParams.get('verify') === 'myphone') {
+                localStorage.setItem('vishu_access_token', 'granted_99');
+                alert("వైషు, నీ ఫోన్ సెక్యూరిటీ యాక్టివేట్ అయ్యింది! ✅");
+            }
+
+            // 2. ఒకసారి సేవ్ అయ్యాక, ఎప్పుడు ఓపెన్ చేసినా ఆటోమేటిక్ గా అన్‌లాక్ అవుతుంది
+            if (localStorage.getItem('vishu_access_token') === 'granted_99') {
+                document.body.classList.add('unlocked');
+                document.getElementById('headerTitle').innerText = "Welcome, Vishu! 😎";
             }
         }
-        function adminAccess() {
-            counter++;
-            if (counter === 7) {
-                if (localStorage.getItem('is_vishu') === 'true') {
-                    if (prompt("PIN:") === "9100") {
-                        document.getElementById('media').style.filter = "none";
-                        document.getElementById('lock').style.display = "none";
-                        document.getElementById('statusBadge').innerText = "ADMIN MODE";
-                        alert("Unlocked! 😎");
-                    }
-                } else { alert("Access Denied!"); }
-                counter = 0;
-            }
+
+        function pay() {
+            window.location.href = "upi://pay?pa=9100911202@ibl&pn=VishuVogue&am=199&cu=INR";
         }
-        function startPayment() { window.location.href = `upi://pay?pa=9100911202@ibl&pn=Vishu&am=199&cu=INR`; }
     </script>
 </body>
 </html>
