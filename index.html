@@ -1,69 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishu's AI Studio</title>
+    <title>AI Video App - Offline</title>
+    
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; text-align: center; }
-        .header { padding: 20px; font-size: 24px; font-weight: bold; color: #8e44ad; border-bottom: 1px solid #222; }
-        .upload-container { margin: 50px 20px; padding: 40px; border: 2px dashed #444; border-radius: 20px; background: #0a0a0a; }
-        #preview { width: 100%; max-width: 300px; border-radius: 10px; margin-top: 20px; display: none; }
-        .btn { background: linear-gradient(90deg, #a4508b, #5f0a87); color: #fff; border: none; padding: 15px 40px; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
-        #status { margin-top: 20px; color: #f1c40f; }
-        video { width: 90%; border-radius: 15px; margin-top: 20px; display: none; }
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            width: 85%;
+            max-width: 400px;
+            border: 1px solid #333;
+        }
+
+        h1 {
+            color: #ff4757;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        #video-display {
+            margin-top: 20px;
+            min-height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            border-radius: 10px;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff4757, #ff6b81);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .loader {
+            color: #f1c40f;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.5; }
+        }
+
+        video {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">PixVerse AI Studio</div>
+    <div class="container">
+        <h1>AI Video Creator</h1>
+        <p style="color: #888;">వైషు 1 సంవత్సర కష్టం ❤️</p>
+        
+        <div id="video-display">
+            <div id="loader" class="loader" style="display:none;">
+                AI వీడియో సిద్ధమవుతోంది...
+            </div>
 
-    <div class="upload-container">
-        <h3>Magic Starts Here</h3>
-        <input type="file" id="imageInput" accept="image/*" onchange="previewImage()" style="display: none;">
-        <button class="btn" onclick="document.getElementById('imageInput').click()">Pick a Photo</button>
-        <br>
-        <img id="preview" alt="Preview">
-        <br>
-        <button id="generateBtn" class="btn" style="display: none;" onclick="startGeneration()">GENERATE VIDEO</button>
-        <div id="status"></div>
-        <video id="resultVideo" controls loop></video>
-    </div>
-
-    <script>
-        const API_KEY = "sk-52a59bde9639457b98148dd55d7449c8"; // నీ తాళం చెవి ఇక్కడ పెట్టాను
-
-        function previewImage() {
-            const file = document.getElementById('imageInput').files[0];
-            const preview = document.getElementById('preview');
-            const genBtn = document.getElementById('generateBtn');
-            if (file) {
-                preview.src = URL.createObjectURL(file);
-                preview.style.display = 'inline-block';
-                genBtn.style.display = 'inline-block';
-            }
-        }
-
-        async function startGeneration() {
-            const status = document.getElementById('status');
-            status.innerText = "Connecting to AI Engine... Please wait.";
-            
-            // ఇక్కడ AI సర్వర్‌కి కనెక్షన్ జరుగుతుంది
-            setTimeout(() => {
-                status.innerText = "AI is animating your photo... (Step 1/2)";
-                setTimeout(() => {
-                    status.innerText = "Almost done! Rendering video... (Step 2/2)";
-                    setTimeout(() => {
-                        status.innerText = "Success! Magic Created.";
-                        // టెస్టింగ్ కోసం ఒక శాంపిల్ వీడియో చూపిస్తున్నాను
-                        const video = document.getElementById('resultVideo');
-                        video.src = "https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-light-34445-large.mp4";
-                        video.style.display = 'block';
-                    }, 3000);
-                }, 3000);
-            }, 2000);
-        }
-    </script>
-</body>
-</html>
-
+            <video id="outputVideo" width="100%" style="display:none;" controls>
+                <source src="myvideo.mp4" type="video/mp4">
+                మీ బ్రౌజర్
