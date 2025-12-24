@@ -3,93 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video App - Offline</title>
-    
+    <title>Vishu's AI App</title>
     <style>
-        body {
-            background-color: #0f0f0f;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .container {
-            text-align: center;
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            width: 85%;
-            max-width: 400px;
-            border: 1px solid #333;
-        }
-
-        h1 {
-            color: #ff4757;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        #video-display {
-            margin-top: 20px;
-            min-height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #000;
-            border-radius: 10px;
-        }
-
-        button {
-            background: linear-gradient(45deg, #ff4757, #ff6b81);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 25px;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
-        }
-
-        button:active {
-            transform: scale(0.95);
-        }
-
-        .loader {
-            color: #f1c40f;
-            font-weight: bold;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0.5; }
-        }
-
-        video {
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
+        body { background: #000; color: #fff; text-align: center; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .box { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 2px solid #ff4757; width: 80%; max-width: 350px; }
+        h2 { color: #ff4757; }
+        #videoPlayer { width: 100%; border-radius: 10px; display: none; margin-top: 15px; }
+        button { background: #ff4757; color: #fff; border: none; padding: 15px 25px; border-radius: 30px; font-size: 16px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        .loading { color: #f1c40f; display: none; margin-top: 20px; }
     </style>
 </head>
 <body>
+    <div class="box">
+        <h2>AI Kissing App ❤️</h2>
+        <p>వైషు క్రియేషన్</p>
+        <div id="loading" class="loading">AI వీడియో తయారవుతోంది...</div>
+        <video id="videoPlayer" controls>
+            <source src="myvideo.mp4" type="video/mp4">
+        </video>
+        <button id="btn" onclick="start()">వీడియో జనరేట్ చేయి</button>
+    </div>
 
-    <div class="container">
-        <h1>AI Video Creator</h1>
-        <p style="color: #888;">వైషు 1 సంవత్సర కష్టం ❤️</p>
-        
-        <div id="video-display">
-            <div id="loader" class="loader" style="display:none;">
-                AI వీడియో సిద్ధమవుతోంది...
-            </div>
-
-            <video id="outputVideo" width="100%" style="display:none;" controls>
-                <source src="myvideo.mp4" type="video/mp4">
-                మీ బ్రౌజర్
+    <script>
+        function start() {
+            document.getElementById('btn').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                let v = document.getElementById('videoPlayer');
+                v.style.display = 'block';
+                v.play();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
